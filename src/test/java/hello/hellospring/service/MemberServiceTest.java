@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+//단위 테스트 : 순수한 자바 코드만 테스트
 class MemberServiceTest {
 
     //new를 이용해서 새로운 서로 다른 인스턴스를 생성 하는 것은 좋지않음
@@ -55,6 +56,8 @@ class MemberServiceTest {
         //중복이름을 넣어줬기 떄문에 예외처리가 실행되야함
         //예외가 발생하면 test성공
         memberService.join(member1);
+
+
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> memberService.join(member2));
         assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
 
