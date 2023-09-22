@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class MemberService {
 
+
     private final MemberRepository memberRepository;
 
     public MemberService(MemberRepository memberRepository) {
@@ -18,9 +19,23 @@ public class MemberService {
     //회원 가입
     public Long join(Member member) {
 
-        validateDuplicateMember(member); //중복 검사 검증 메소드
-        memberRepository.save(member);
-        return member.getId();
+        //메소드 실행 시작 시간
+        long start = System.currentTimeMillis();
+
+        try {
+            validateDuplicateMember(member); //중복 검사 검증 메소드
+            memberRepository.save(member);
+            return member.getId();
+        } finally {//메소드가 끝나면 시간 측정
+
+            //메소드 실행 끝난 시간
+            long finish = System.currentTimeMillis();
+
+            //끝난 시간 - 시작 시간
+            long timeMs = finish - start;
+
+            //System.out.println("join = " + timeMs +"ms");
+        }
     }
 
     private void validateDuplicateMember(Member member) {
@@ -39,7 +54,15 @@ public class MemberService {
 
     //전체 회원 조회
     public List<Member> findMebers() {
-        return memberRepository.findAll();
+        long start = System.currentTimeMillis();
+
+        try {
+            return memberRepository.findAll();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            //System.out.println("findMembers " + timeMs + "ms");
+        }
     }
 
     //회원 1명 조회

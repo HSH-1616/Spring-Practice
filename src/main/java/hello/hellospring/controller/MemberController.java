@@ -23,6 +23,10 @@ public class MemberController {
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+
+        //Aop가 적용 되었는지 확인
+        //적용 되었으면 프록시 객체 출력, 아니면 실제 객체 출력
+        System.out.println("memberSerivce : "+memberService.getClass());
     }
 
     //필드 주입 : 외부에서 수정이 불가능 하고 @Autowired 어노테이션으로 의존성 주입을 남발할 수 있다.
